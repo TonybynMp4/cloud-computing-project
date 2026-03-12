@@ -1,0 +1,7 @@
+# Il faut générer/utiliser une paire de clés SSH pour se connecter aux machines virtuelles.
+ssh_public_key_path = "~/.ssh/"
+mysql_admin_username = "adminuser"
+mysql_admin_password = ""
+# `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`
+# génère un string aléatoire
+jwt_secret           = ""
