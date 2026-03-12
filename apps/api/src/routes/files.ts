@@ -10,10 +10,8 @@ import { authMiddleware } from "../middleware/auth.js";
 const router = Router();
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 50 * 1024 * 1024 } });
 
-// All routes require auth
 router.use(authMiddleware);
 
-// POST /api/files — upload
 router.post("/", upload.single("file"), async (req, res) => {
   const file = req.file;
   if (!file) {
@@ -44,7 +42,6 @@ router.post("/", upload.single("file"), async (req, res) => {
   res.status(201).json(record);
 });
 
-// GET /api/files — list user's files
 router.get("/", async (req, res) => {
   const userId = req.user!.userId;
 
@@ -56,7 +53,6 @@ router.get("/", async (req, res) => {
   res.json(userFiles);
 });
 
-// GET /api/files/:id/download — stream from blob
 router.get("/:id/download", async (req, res) => {
   const userId = req.user!.userId;
   const fileId = req.params["id"]!;
@@ -83,7 +79,6 @@ router.get("/:id/download", async (req, res) => {
   stream.pipe(res);
 });
 
-// DELETE /api/files/:id
 router.delete("/:id", async (req, res) => {
   const userId = req.user!.userId;
   const fileId = req.params["id"]!;

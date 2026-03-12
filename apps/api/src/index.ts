@@ -8,7 +8,6 @@ import fileRoutes from "./routes/files.js";
 const app = express();
 const PORT = Number(process.env["PORT"] ?? 3000);
 
-// Middleware
 app.use(helmet());
 app.use(
   cors({
@@ -19,11 +18,9 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 
-// Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/files", fileRoutes);
 
-// Health check
 app.get("/api/health", (_req, res) => {
   res.json({ status: "ok" });
 });

@@ -29,7 +29,6 @@ const loginSchema = z.object({
   password: z.string().min(1),
 });
 
-// POST /api/auth/register
 router.post("/register", async (req, res) => {
   const parsed = registerSchema.safeParse(req.body);
   if (!parsed.success) {
@@ -62,7 +61,6 @@ router.post("/register", async (req, res) => {
   res.status(201).json({ id: inserted!.id, username });
 });
 
-// POST /api/auth/login
 router.post("/login", async (req, res) => {
   const parsed = loginSchema.safeParse(req.body);
   if (!parsed.success) {
@@ -94,13 +92,11 @@ router.post("/login", async (req, res) => {
   res.json({ id: user.id, username: user.username });
 });
 
-// POST /api/auth/logout
 router.post("/logout", (_req, res) => {
   res.cookie("token", "", { ...COOKIE_OPTIONS, maxAge: 0 });
   res.json({ message: "Logged out" });
 });
 
-// GET /api/auth/me
 router.get("/me", authMiddleware, (req, res) => {
   res.json(req.user);
 });
